@@ -10,7 +10,9 @@ import mongoose from './node_modules/mongoose/index.js';
 import Er from './errorHandling.js'
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import cookieParser from "cookie-parser"
+import cookieParser from "cookie-parser";
+import dataSanitize from "express-mongo-sanitize";
+import hpp from "hpp";
 import helmet from "helmet"
 
 const __filename = fileURLToPath(import.meta.url);
@@ -42,7 +44,12 @@ app.set("views", `${__dirname}/public/views/`);
 // cookieParser will parse the cookie from the browser into 'request.cookie' .
 // bodyParser will 
 // urlencoded will parse the formdata to request.body
-app.use (helmet ());
+app.use (dataSanitize ());
+app.use (hpp ({
+    whitelist :[
+
+    ]
+}))
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
 app.use(bodyParser.json());
