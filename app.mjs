@@ -42,7 +42,7 @@ app.set("views", `${__dirname}/public/views/`);
 // cookieParser will parse the cookie from the browser into 'request.cookie' .
 // bodyParser will 
 // urlencoded will parse the formdata to request.body
-// app.use (helmet ());
+app.use (helmet ());
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
 app.use(bodyParser.json());

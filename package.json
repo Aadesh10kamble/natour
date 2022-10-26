@@ -35,5 +35,8 @@
     "slugify": "^1.6.5",
     "stripe": "^10.15.0",
     "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-pug": "^2.7.0"
   }
 }

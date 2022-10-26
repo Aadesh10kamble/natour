@@ -1,4 +1,3 @@
-
 import { login ,logout, profilePasswordChange ,newPasswordChange,bookTour} from "./login.js";
 import {alertFunction} from "./alert.js";
 
