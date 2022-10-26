@@ -44,11 +44,27 @@ app.set("views", `${__dirname}/public/views/`);
 // cookieParser will parse the cookie from the browser into 'request.cookie' .
 // bodyParser will 
 // urlencoded will parse the formdata to request.body
-app.use (dataSanitize ());
-app.use (hpp ({
-    whitelist :[
 
-    ]
+
+app.use(helmet({
+    crossOriginEmbedderPolicy : false
+}));
+
+
+app.use(helmet.contentSecurityPolicy({
+    directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.js", "https://js.stripe.com/v3/"],
+        frameSrc : ["'self'",'https://js.stripe.com/']
+    }
+}));
+
+
+
+app.use(dataSanitize());
+
+app.use(hpp({
+    whitelist: []
 }))
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
@@ -57,7 +73,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Different Router will trigger 
 app.use("/", viewsRouter);
-app.use("/booking",bookingRouter);
+app.use("/booking", bookingRouter);
 app.use("/api/tours", tourRouter);
 app.use("/api/users", userRouter);
 app.use("/api/reviews", reviewRouter);
