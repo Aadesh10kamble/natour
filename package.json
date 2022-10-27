@@ -5,7 +5,8 @@
   "main": "bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set NODE_ENV=development&&nodemon app.js",
+    "start": "set NODE_ENV=development&&node app.js",
+    "start:dev": "set NODE_ENV=development&&nodemon app.js",
     "start:pro": "set NODE_ENV=production&&nodemon app.js",
     "watch:js": "parcel  ./public/js/index.js --dist-dir ./public/bundler --public-url /js --no-hmr"
   },
@@ -46,5 +47,8 @@
   "devDependencies": {
     "@parcel/transformer-pug": "^2.7.0",
     "parcel-bundler": "^1.12.3"
+  },
+  "engines" : {
+    "node": ">=10.0.0"
   }
 }
