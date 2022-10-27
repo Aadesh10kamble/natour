@@ -1,3 +1,5 @@
+import axios from "axios";
+// import Stripe from "stripe";
 const stripe = Stripe("pk_test_51LwSAkSFHY5osQasnntyGk54CbAbEokG28fnNWkBUjE998kVq876ODqvUG3mZryDnW4JDvIuT7T5g6Wne1ObyD1k00RHjvlgDr")
 
 const login = async function (email, password) {
@@ -72,7 +74,6 @@ const bookTour = async function (tourId) {
     try {
         const url = `/booking/checkout-session/${tourId}`;
         const response = await axios(url);
-        console.log (response.data.session.id);
         await stripe.redirectToCheckout ({
             sessionId : response.data.session.id
         })

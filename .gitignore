@@ -3,3 +3,4 @@ node_modules
 tour5.js
 router.js
 *.env
+.cache

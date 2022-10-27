@@ -1,22 +1,33 @@
-import express from './node_modules/express/index.js';
-import bodyParser from 'body-parser';
-import tourRouter from './route/tourRouter.js'
-import userRouter from './route/userRouter.js';
-import reviewRouter from './route/reviewRouter.js';
-import viewsRouter from './route/viewsRouter.js';
-import bookingRouter from './route/bookingRouter.js';
-import dotenv from './node_modules/dotenv/lib/main.js';
-import mongoose from './node_modules/mongoose/index.js';
-import Er from './errorHandling.js'
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import cookieParser from "cookie-parser";
-import dataSanitize from "express-mongo-sanitize";
-import hpp from "hpp";
-import helmet from "helmet"
+// import express from 'express';
+const express = require ("express");
+// import bodyParser from 'body-parser';
+const bodyParser = require ("body-parser");
+// import tourRouter from './route/tourRouter.js'
+const tourRouter = require ("./route/tourRouter.js")
+// import userRouter from './route/userRouter.js';
+const userRouter = require ("./route/userRouter.js")
+// import reviewRouter from './route/reviewRouter.js';
+const reviewRouter = require ("./route/reviewRouter.js")
+// import viewsRouter from './route/viewsRouter.js';
+const viewsRouter = require ("./route/viewsRouter.js")
+// import bookingRouter from './route/bookingRouter.js';
+const bookingRouter = require ("./route/bookingRouter.js")
+// import dotenv from './node_modules/dotenv/lib/main.js';
+const dotenv = require ("dotenv")
+// import mongoose from 'mongoose';
+const mongoose = require ("mongoose")
+// import Er from './errorHandling.js'
+const Er = require ("./errorHandling.js")
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// import cookieParser from "cookie-parser";
+const cookieParser = require ("cookie-parser")
+// import dataSanitize from "express-mongo-sanitize";
+const dataSanitize = require ("express-mongo-sanitize")
+// import hpp from "hpp";
+const hpp = require ("hpp")
+// import helmet from "helmet"
+const helmet = require ("helmet")
+
 
 // dotenv.config function looks for .env file specified in the path... 
 // then appends the content of it to process.env.
@@ -47,19 +58,22 @@ app.set("views", `${__dirname}/public/views/`);
 
 
 app.use(helmet({
+    // contentSecurityPolicy : false,
     crossOriginEmbedderPolicy : false
 }));
-
 
 app.use(helmet.contentSecurityPolicy({
     directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.js", "https://js.stripe.com/v3/"],
-        frameSrc : ["'self'",'https://js.stripe.com/']
+        frameSrc : ["'self'",'https://js.stripe.com/'],
     }
 }));
 
-
+// app.use(helmet({
+//     contentSecurityPolicy : true,
+//     crossOriginEmbedderPolicy : false
+// }));
 
 app.use(dataSanitize());
 

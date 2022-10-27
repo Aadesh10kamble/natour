@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import { login ,logout, profilePasswordChange ,newPasswordChange,bookTour} from "./login.js";
 import {alertFunction} from "./alert.js";
 
@@ -16,10 +17,10 @@ if (logoutBtn) logoutBtn.addEventListener ("click",(event) => {
 if (loginForm) {
     loginForm.addEventListener ("submit",async (event)=> {
         event.preventDefault ();
-        
+        console.log ("1212");
         const email = document.getElementById ("email").value;
         const password = document.getElementById ("password").value;
-
+        console.log ("1212");
         const alertData = await login (email,password);
         alertFunction (...alertData);
     });
@@ -36,7 +37,6 @@ if (loginForm) {
 //         alertFunction (...alertData);
 //     })
 // };
-
 if (changePasswordForm) {
     changePasswordForm.addEventListener ("submit", async (event) => {
         event.preventDefault ();
@@ -73,7 +73,7 @@ if (bookBtn) {
     bookBtn.addEventListener ("click",async (event) => {
         event.preventDefault ();
         const tour = event.target.getAttribute ("data");
-        console.log (tour);
+        console.log ("1212");
         await bookTour (tour);
     })
 };
