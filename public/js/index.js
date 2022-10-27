@@ -2,6 +2,8 @@
 import { login ,logout, profilePasswordChange ,newPasswordChange,bookTour,signup} from "./login.js";
 import {alertFunction} from "./alert.js";
 
+const content = document.querySelector (".user-view__content");
+const sideNav = document.querySelector (".side-nav");
 const loginForm = document.querySelector (".form-login");
 const signupForm = document.querySelector (".form-signup");
 const logoutBtn = document.getElementById ("logout");
@@ -10,6 +12,16 @@ const changePasswordForm = document.querySelector (".form-user-settings");
 const newPasswordForm = document.querySelector (".form-newPassword");
 const bookBtn = document.getElementById ("booking");
 
+if (sideNav) {
+    sideNav.addEventListener ("click", (event) => {
+        event.preventDefault ();
+        document.querySelectorAll (".user-view__form-container").forEach (el => el.classList.add ("container-hidden"));
+        document.querySelector (".side-nav--active")?.classList.remove ("side-nav--active");
+
+        document.getElementById (event.target.textContent).classList.remove ("container-hidden");
+        event.target.classList.add ("side-nav--active");
+    })
+}
 if (logoutBtn) logoutBtn.addEventListener ("click",(event) => {
     event.preventDefault ();
     logout ();

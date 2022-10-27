@@ -27,6 +27,7 @@ const signup = async function (data) {
             url: "/api/users/signup",
             data : data
         });
+        console.log (response);
         if (response.data.status === "success") {
             window.location.assign("/login");
             return ["success", "Account created please login to continue"]

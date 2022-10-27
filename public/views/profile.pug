@@ -9,17 +9,22 @@ block content
                             svg
                             use(xlink:href='img/icons.svg#icon-settings')
                             | Settings
-                    li.side-nav--inactive
-                        a(href='/booked-tours')
+                    li
+                        a(href='#')
                             svg
                             use(xlink:href='img/icons.svg#icon-briefcase')
-                            | My bookings
-                    li.side-nav--inactive
+                            | Password
+                    li
+                        a(href='#')
+                            svg
+                            use(xlink:href='img/icons.svg#icon-briefcase')
+                            | Bookings
+                    li
                         a(href='#')
                             svg
                             use(xlink:href='img/icons.svg#icon-star')
-                            | My reviews
-                    li.side-nav--inactive
+                            | Reviews
+                    li
                         a(href='#')
                             svg
                             use(xlink:href='img/icons.svg#icon-credit-card')
@@ -48,7 +53,7 @@ block content
                 //-                 use(xlink:href='img/icons.svg#icon-briefcase')
 
             .user-view__content
-                .user-view__form-container 
+                .user-view__form-container#Settings 
                     h2.heading-secondary.ma-bt-md Your account settings
                     form.form.form-user-data(enctype="multipart/form-data" method = "post" action = "/update-profile")
                         .form__group
@@ -63,8 +68,7 @@ block content
                             input#photo.form__input(type="file" name="photo")
                         .form__group.right
                             button.btn.btn--small.btn--green(id = "settings") Save settings
-                .line &nbsp;
-                .user-view__form-container
+                .user-view__form-container.container-hidden#Password
                     h2.heading-secondary.ma-bt-md Password change
                     form.form.form-user-settings
                         .form__group
@@ -78,3 +82,38 @@ block content
                             input#password-confirm.form__input(type='password', placeholder='••••••••', required, minlength='8')
                         .form__group.right
                             button.btn.btn--small.btn--green(id = "passwordChange") Save password
+                .user-view__form-container.container-hidden#Bookings
+                    h2.heading-secondary.ma-bt-md Booked Tour
+                    ul.results
+                        - for (const tour of tours) {
+                        li.preview
+                            .card__details 
+                            h4.card__sub-heading=tour.name
+                            p.card__text=tour.summary    
+                            .card__data 
+                                svg.card__icon
+                                    use(xlink:href="img/icons.svg#icon-map-pin")
+                                    span=tour.startLocation.description
+                            .card__data
+                                svg.card__icon 
+                                    use(xlink:href="img/icons.svg#icon-calendar")
+                                    span=tour.startDates[0].toLocaleString ("eng-us",{month : long}) 
+                            .card__data
+                                svg.card__icon 
+                                    use(xlink:href="img/icons.svg#icon-flag")
+                                    span #{tour.locations.length} Stops
+                            .card__data
+                                svg.card__icon 
+                                    use(xlink:href="img/icons.svg#icon-user")
+                                    span=tour.maxGroupSize
+                            a.btn.btn--green.btn--small(href=`tour/${tour.slug}`) Details  
+
+
+
+                            //- //- a(class="preview__link preview__link--active", href="#${ele.id}")
+                            //- figure(class="preview__fig")
+                            //-     img(src=`/img/tours/${tour.imageCover}`, alt="Test")
+                            //- div(class="preview__data")
+                            //-     h4(class="preview__title")=tour.name
+                            //-     p(class="preview__publisher")=tour.summary
+                        -}

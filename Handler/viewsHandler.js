@@ -53,7 +53,11 @@ const signup = async (request,response,next) => {
 
 const userProfile = async function (request, response, next) {
     try {
-        response.status(200).render("profile");
+        // console.log (response.locals)
+        const bookedTour = response.locals.user.bookedTours.map ((el) => el.tour);
+        response.status(200).render("profile" ,{
+            tours : bookedTour
+        });
     } catch (error) {
         next(error);
     }
@@ -70,12 +74,14 @@ const updateProfile = async function (request, response, next) {
             email: request.body.email
         };
         if (request.file) updateData.photo = request.file.filename;
-        const UpdateUser = await userModel.findByIdAndUpdate(request.user._id, updateData, {
+        const UpdateUser = await userModel.findByIdAndUpdate(response.locals.user._id, updateData, {
             new: true,
             runValidators: true
         });
+        const bookedTour = response.locals.user.bookedTours.map ((el) => el.tour);
         response.status(200).render("profile", {
-            user: UpdateUser
+            user: UpdateUser,
+            tours : bookedTour
         });
     } catch (error) {
         next(error);
@@ -121,8 +127,9 @@ const photo = multer({
 });
 
 const resizePhoto = function (request, response, next) {
-    if (!request.file) next();
-    request.file.filename = `${request.user._id}.jpeg`;
+    if (!request.file) return next();
+    console.log (response.locals.user);
+    request.file.filename = `${response.locals.user._id}.jpeg`;
     sharp(request.file.buffer).resize(500, 500)
         .toFormat("jpeg")
         .toFile(`public/img/users/${request.file.filename}`);

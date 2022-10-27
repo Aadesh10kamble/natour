@@ -88,7 +88,7 @@ const protect = async function (request, response, next) {
             const changedTimeStamp = user.passwordChangedAt.getTime() / 1000;
             if (changedTimeStamp > decoded.iat) throw new Er.APIError("Password changed please login again", 400);
         };
-        response.locals = request.user = user;
+        response.locals.user = request.user = user;
         console.log("PROTECT");
         next();
     } catch (error) {

@@ -146,6 +146,8 @@
 // import '@babel/polyfill';
 var _loginJs = require("./login.js");
 var _alertJs = require("./alert.js");
+const content = document.querySelector(".user-view__content");
+const sideNav = document.querySelector(".side-nav");
 const loginForm = document.querySelector(".form-login");
 const signupForm = document.querySelector(".form-signup");
 const logoutBtn = document.getElementById("logout");
@@ -153,6 +155,13 @@ const saveProfileChangeForm = document.querySelector(".form-user-data");
 const changePasswordForm = document.querySelector(".form-user-settings");
 const newPasswordForm = document.querySelector(".form-newPassword");
 const bookBtn = document.getElementById("booking");
+if (sideNav) sideNav.addEventListener("click", (event)=>{
+    event.preventDefault();
+    document.querySelectorAll(".user-view__form-container").forEach((el)=>el.classList.add("container-hidden"));
+    document.querySelector(".side-nav--active")?.classList.remove("side-nav--active");
+    document.getElementById(event.target.textContent).classList.remove("container-hidden");
+    event.target.classList.add("side-nav--active");
+});
 if (logoutBtn) logoutBtn.addEventListener("click", (event)=>{
     event.preventDefault();
     (0, _loginJs.logout)();
@@ -259,6 +268,7 @@ const signup = async function(data) {
             url: "/api/users/signup",
             data: data
         });
+        console.log(response);
         if (response.data.status === "success") {
             window.location.assign("/login");
             return [
