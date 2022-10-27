@@ -16,7 +16,7 @@ const signUp = async function (request, response, next) {
         newUser.password = undefined;
         await new Mail(newUser, "").sendWelcome();
         response.status(201).json({
-            success: "success",
+            status: "success",
             data: {
                 newUser
             }

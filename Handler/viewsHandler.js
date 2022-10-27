@@ -43,6 +43,14 @@ const login = async function (request, response, next) {
     }
 };
 
+const signup = async (request,response,next) => {
+    try {
+        response.status (200).render ("signup");
+    } catch (error) {
+        next(error);
+    }   
+}
+
 const userProfile = async function (request, response, next) {
     try {
         response.status(200).render("profile");
@@ -121,6 +129,7 @@ const resizePhoto = function (request, response, next) {
     next();
 };
 
+exports.signup = signup;
 exports.bookedTours = bookedTours;
 exports.newPassword = newPassword;
 exports.resizePhoto = resizePhoto;

@@ -1,8 +1,9 @@
-import '@babel/polyfill';
-import { login ,logout, profilePasswordChange ,newPasswordChange,bookTour} from "./login.js";
+// import '@babel/polyfill';
+import { login ,logout, profilePasswordChange ,newPasswordChange,bookTour,signup} from "./login.js";
 import {alertFunction} from "./alert.js";
 
 const loginForm = document.querySelector (".form-login");
+const signupForm = document.querySelector (".form-signup");
 const logoutBtn = document.getElementById ("logout");
 const saveProfileChangeForm = document.querySelector (".form-user-data");
 const changePasswordForm = document.querySelector (".form-user-settings");
@@ -17,14 +18,28 @@ if (logoutBtn) logoutBtn.addEventListener ("click",(event) => {
 if (loginForm) {
     loginForm.addEventListener ("submit",async (event)=> {
         event.preventDefault ();
-        console.log ("1212");
-        const email = document.getElementById ("email").value;
-        const password = document.getElementById ("password").value;
-        console.log ("1212");
-        const alertData = await login (email,password);
+        const data = {
+            email : document.getElementById ("email").value,
+            password : document.getElementById ("password").value
+        }
+        const alertData = await login (data);
         alertFunction (...alertData);
     });
 };
+
+if (signupForm) {
+    signupForm.addEventListener ("submit",async event => {
+        event.preventDefault ();
+        const data = {
+            name : document.getElementById ("name").value,
+            email : document.getElementById ("email").value,
+            password : document.getElementById ("password").value,
+            passwordConfirm : document.getElementById ("passwordConfirm").value,
+        };
+        const alertData = await signup (data);
+        alertFunction (...alertData);
+    })
+}
 
 // if (saveProfileChangeForm) {
 //     saveProfileChangeForm.addEventListener ("submit",async (event) => {
